@@ -1,0 +1,76 @@
+SP2 Server Mod {version}: test plan
+===================================
+
+Roles
+  HOST   runs the server and has the mod
+  P1     a player WITH the mod
+  P2     a player WITHOUT the mod (move the DLL out of the plugins folder, or use a game
+         without it)
+
+For every test, write down what happened and send the logs (see README, REPORTING).
+"OK" = what the test says should happen. Anything else: note it, even if it is small.
+
+
+0. Loading (everybody with the mod)
+   [ ] The log has "SP2 Server Mod {version} loaded" and "[COMPAT] everything the mod uses was found".
+   [ ] The log has "Patch applied:" lines and no "Patch ... failed".
+   [ ] The blue "SP2 Server Mod" button is in the flight menu and opens the window.
+
+1. Making a match (HOST)
+   [ ] New match, two teams, one spawn each, lives 1, time 5 minutes, kill limit 0.
+   [ ] The section does not say "NOT LISTED"; the match is in Activities > Combat.
+   [ ] Close the game, open it again: the match is still in the window.
+
+2. Starting a match (HOST + P1 + P2)
+   [ ] HOST creates the match; P1 and P2 can join and choose a team.
+   [ ] Before it starts, P1 sees rings at the spawns of their team.
+   [ ] At the start everybody is at a spawn of their team.
+   [ ] Everybody sees "The match begins: ...".
+   [ ] P1 sees the bars on the left (Time, Lives, Kills, Alive, Teams).
+
+3. Lives and the end (HOST + P1 + P2)
+   [ ] HOST shoots P2 down: everybody sees "... was shot down" or "... is out of lives".
+   [ ] P2 tries to restart (menu, keys, Change craft): refused, with a message, no craft.
+   [ ] When one player or team is left, the match ends by itself and the winner is announced.
+   [ ] Repeat with lives 3: the messages count the lives down.
+   [ ] Repeat with a kill limit of 3 and no lives: the match ends at the third kill.
+
+4. Spectator (P1 out of lives, at least 2 others alive)
+   [ ] P1's camera follows another player's craft; "." and "," change who.
+   [ ] The camera moves with the craft (it does not stay where the craft was).
+   [ ] When the match ends the camera goes back to normal.
+
+5. Team crafts (HOST sets them, then P1 and P2 join)
+   [ ] "Add the craft I'm flying" for team 1 (twice, with two different crafts): the section
+       lists "Craft 1" and "Craft 2". P1 on team 1 has both files in the folder.
+   [ ] P1 sees "Your team's crafts" at the top of the window, with the first craft in blue;
+       picking the other one swaps P1's craft at once (before the start).
+   [ ] During the match the "Craft" bar on the left shows P1's craft; clicking it picks the
+       next one, and P1's craft in the air does NOT change (the next spawn loads it; try
+       with lives 3: after being shot down P1 comes back in the new craft).
+   [ ] P1 flies one craft, P3 (a second player with the mod) the other: both are accepted by
+       the server ("[craft check] ... flies a craft of the team: the hash matches" twice).
+   [ ] "Add craft from the website" for team 2 with a link: P1 on team 2 downloads it by itself.
+   [ ] P2 on team 2 gets the links in the chat (one line per craft, clickable), about 7 seconds after joining.
+   [ ] Change craft during the match: P1 gets "This match requires one of your team's crafts".
+   [ ] Leaving the match: P1's own craft comes back.
+   [ ] A match file made with the previous version (one craft) still loads, with that craft.
+
+6. Craft check (HOST)
+   [ ] With "log only": the log has "[craft check] ... the hash matches" for P1 and a
+       warning with two hashes for P2. SEND THESE LINES.
+   [ ] Only if the hashes match for P1: switch to "enforce". P2 loses the wrong craft with
+       a message; P1 keeps flying.
+
+7. Things that go wrong
+   [ ] P1 closes the game in the middle of a match: the match goes on or ends sensibly.
+   [ ] P2 leaves the match and joins again: with lives, they cannot rejoin a running match.
+   [ ] A player joins a match that is already running (without lives): it works.
+   [ ] The host leaves: the others are not stuck without a craft or with a frozen camera.
+   [ ] Two matches at the same time, or a match from a game with no mod on the host.
+
+8. Who has the mod
+   [ ] HOST's window: "Players with the mod" shows the right count a few seconds after
+       players join.
+
+Always send: LogOutput.log of HOST and of the players involved, who was who, and what you saw.

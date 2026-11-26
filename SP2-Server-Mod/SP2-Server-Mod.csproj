@@ -1,0 +1,84 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<AssemblyName>SP2ServerMod</AssemblyName>
+		<RootNamespace>SP2ServerMod</RootNamespace>
+		<LangVersion>latest</LangVersion>
+		<!-- Symbols inside the DLL: error lines in the log then say which line failed. -->
+		<DebugType>embedded</DebugType>
+		<GameDir Condition="'$(GameDir)' == ''">C:\Program Files (x86)\Steam\steamapps\common\SimplePlanes 2</GameDir>
+	</PropertyGroup>
+
+	<!-- The game's data folder is named after its exe ("SimplePlanes 2_Data" or "SimplePlanes 2 (1.1)_Data").
+	     Override with -p:ManagedDir=... if neither fits. -->
+	<PropertyGroup>
+		<ManagedDir Condition="'$(ManagedDir)' == '' And Exists('$(GameDir)\SimplePlanes 2_Data\Managed')">$(GameDir)\SimplePlanes 2_Data\Managed</ManagedDir>
+		<ManagedDir Condition="'$(ManagedDir)' == '' And Exists('$(GameDir)\SimplePlanes 2 (1.1)_Data\Managed')">$(GameDir)\SimplePlanes 2 (1.1)_Data\Managed</ManagedDir>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Reference Include="BepInEx">
+			<HintPath>$(GameDir)\BepInEx\core\BepInEx.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="0Harmony">
+			<HintPath>$(GameDir)\BepInEx\core\0Harmony.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Game">
+			<HintPath>$(ManagedDir)\Game.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine">
+			<HintPath>$(ManagedDir)\UnityEngine.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.CoreModule">
+			<HintPath>$(ManagedDir)\UnityEngine.CoreModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.PhysicsModule">
+			<HintPath>$(ManagedDir)\UnityEngine.PhysicsModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.IMGUIModule">
+			<HintPath>$(ManagedDir)\UnityEngine.IMGUIModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.TextRenderingModule">
+			<HintPath>$(ManagedDir)\UnityEngine.TextRenderingModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.UIModule">
+			<HintPath>$(ManagedDir)\UnityEngine.UIModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.UI">
+			<HintPath>$(ManagedDir)\UnityEngine.UI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Unity.TextMeshPro">
+			<HintPath>$(ManagedDir)\Unity.TextMeshPro.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Unity.InputSystem">
+			<HintPath>$(ManagedDir)\Unity.InputSystem.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<!-- Types in the signatures of the game's own members (the game's UI library and its helpers) -->
+		<Reference Include="Jundroo.Packages">
+			<HintPath>$(ManagedDir)\Jundroo.Packages.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Jundroo.Common">
+			<HintPath>$(ManagedDir)\Jundroo.Common.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="FishNet.Runtime">
+			<HintPath>$(ManagedDir)\FishNet.Runtime.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+	</ItemGroup>
+
+</Project>

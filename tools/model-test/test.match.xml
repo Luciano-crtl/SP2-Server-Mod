@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Match id="test arena" name="Test &amp; Arena" description="Shoot them all." mode="TDM" timer="240">
+  <Team id="1">
+    <Spawn position="12873,4.55,-29883" rotation="0,45,0" onGround="true" speed="0" spread="15" />
+    <Spawn position="12900.5,4.55,-29850.25" rotation="0,45,0" onGround="false" speed="0" spread="20" />
+  </Team>
+  <Team id="2">
+    <Spawn position="13073,4.55,-29683" rotation="0,225,0" onGround="true" speed="0" spread="15" />
+  </Team>
+</Match>
